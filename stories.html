@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Share Your Story - Loxley</title>
+  <link rel="stylesheet" href="styles.css">
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+</head>
+<body>
+
+<header>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="history.html">History</a>
+    <a href="stories.html">Share Stories</a>
+  </nav>
+</header>
+
+<main>
+  <h2>Tell Us Your Story About Loxley</h2>
+
+  <textarea id="storyText" placeholder="Write your story..." rows="4" style="width:100%;"></textarea><br>
+  <button onclick="submitStory()">Submit Story</button>
+
+  <h3>Stories from Visitors</h3>
+  <div id="storiesContainer"></div>
+
+<script>
+  // TODO: Replace the config below with your Firebase project config
+  const firebaseConfig = {
+    apiKey: "YOUR_API_KEY",
+    authDomain: "YOUR_AUTH_DOMAIN",
+    databaseURL: "YOUR_DATABASE_URL",
+    projectId: "YOUR_PROJECT_ID",
+    storageBucket: "YOUR_STORAGE_BUCKET",
+    messagingSenderId: "YOUR_SENDER_ID",
+    appId: "YOUR_APP_ID"
+  };
+
+  firebase.initializeApp(firebaseConfig);
+  const db = firebase.database().ref("stories");
+
+  function submitStory() {
+    let text = document.getElementById("storyText").value;
+    if (text.trim() === "") return;
+    db.push().set({ text });
+    document.getElementById("storyText").value = "";
+  }
+
+  db.on("child_added", function(snapshot) {
+    let data = snapshot.val();
+    let div = document.createElement("div");
+    div.className = "story-card";
+    div.innerText = data.text;
+    document.getElementById("storiesContainer").appendChild(div);
+  });
+</script>
+
+</main>
+
+</body>
+</html>

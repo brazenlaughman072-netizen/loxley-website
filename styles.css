@@ -1,0 +1,74 @@
+:root {
+  --seaGreen: #88BBA7;
+  --accent: #F2E8CF;
+  --white: #FFFFFF;
+  --dark: #333333;
+}
+
+/* GLOBAL STYLES */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  background: var(--white);
+  color: var(--dark);
+}
+
+header {
+  background: var(--seaGreen);
+  padding: 15px;
+  text-align: center;
+  font-size: 24px;
+  color: var(--white);
+}
+
+nav a {
+  color: var(--white);
+  margin: 0 15px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+nav a:hover {
+  text-decoration: underline;
+}
+
+main {
+  padding: 20px;
+}
+
+.hero {
+  background: var(--accent);
+  padding: 30px;
+  text-align: center;
+  border-radius: 10px;
+}
+
+.hero h1 {
+  color: var(--seaGreen);
+}
+
+/* TIMELINE */
+.timeline {
+  margin-top: 30px;
+  border-left: 4px solid var(--seaGreen);
+  padding-left: 20px;
+}
+.timeline-item {
+  margin: 20px 0;
+}
+.timeline-item h3 {
+  color: var(--seaGreen);
+}
+
+/* STORIES LIST */
+.story-card {
+  border: 1px solid var(--seaGreen);
+  padding: 10px;
+  margin: 15px 0;
+  border-radius: 5px;
+}
