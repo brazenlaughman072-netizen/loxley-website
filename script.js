@@ -1,33 +1,44 @@
-// script.js
-
-// 1. Simple alert when someone visits the website
-window.addEventListener('load', () => {
-  console.log("Welcome to Loxley, Alabama!");
-});
-
-// 2. Smooth scrolling for internal links (Home → History → Stories)
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-  anchor.addEventListener('click', function(e) {
-    e.preventDefault();
-    const target = document.querySelector(this.getAttribute('href'));
-    if(target) {
-      target.scrollIntoView({ behavior: 'smooth' });
-    }
-  });
-});
-
-// 3. Example interactive feature for the Stories page
-function submitStory() {
-  const storyInput = document.getElementById('storyInput');
-  const storyList = document.getElementById('storyList');
-  
-  if(storyInput && storyList && storyInput.value.trim() !== "") {
-    const li = document.createElement('li');
-    li.textContent = storyInput.value;
-    storyList.appendChild(li);
-    storyInput.value = "";
+// Smooth scroll to sections
+function scrollToSection(sectionId){
+  const section = document.getElementById(sectionId);
+  if(section){
+    section.scrollIntoView({behavior: "smooth"});
   }
 }
 
-// Optional: connect this function to a button in your stories.html
-// <button onclick="submitStory()">Post Story</button>
+// STORY POSTING
+function postStory(){
+  const text = document.getElementById('storyText').value;
+  const fileInput = document.getElementById('storyImage');
+  if(text.trim() === "" && fileInput.files.length === 0){
+    alert("Please add text or a photo!");
+    return;
+  }
+
+  const feed = document.getElementById('storyFeed');
+
+  // Create post card
+  const card = document.createElement('div');
+  card.className = 'story-card';
+
+  // Add text
+  if(text.trim() !== ""){
+    const p = document.createElement('p');
+    p.textContent = text;
+    card.appendChild(p);
+  }
+
+  // Add image if uploaded
+  if(fileInput.files.length > 0){
+    const img = document.createElement('img');
+    img.src = URL.createObjectURL(fileInput.files[0]);
+    card.appendChild(img);
+  }
+
+  // Add to feed at top
+  feed.prepend(card);
+
+  // Reset inputs
+  document.getElementById('storyText').value = "";
+  fileInput.value = "";
+}
